@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BackupRouteImport } from './routes/backup'
+import { Route as BibliotecaRouteImport } from './routes/biblioteca'
+import { Route as BriefingsRouteImport } from './routes/briefings'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as DiarioRouteImport } from './routes/diario'
+import { Route as EstudioRouteImport } from './routes/estudio'
+import { Route as MapaRouteImport } from './routes/mapa'
+import { Route as RadarRouteImport } from './routes/radar'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BackupRoute = BackupRouteImport.update({
+  id: '/backup',
+  path: '/backup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BibliotecaRoute = BibliotecaRouteImport.update({
+  id: '/biblioteca',
+  path: '/biblioteca',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BriefingsRoute = BriefingsRouteImport.update({
+  id: '/briefings',
+  path: '/briefings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiarioRoute = DiarioRouteImport.update({
+  id: '/diario',
+  path: '/diario',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EstudioRoute = EstudioRouteImport.update({
+  id: '/estudio',
+  path: '/estudio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapaRoute = MapaRouteImport.update({
+  id: '/mapa',
+  path: '/mapa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RadarRoute = RadarRouteImport.update({
+  id: '/radar',
+  path: '/radar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/backup': typeof BackupRoute
+  '/biblioteca': typeof BibliotecaRoute
+  '/briefings': typeof BriefingsRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/diario': typeof DiarioRoute
+  '/estudio': typeof EstudioRoute
+  '/mapa': typeof MapaRoute
+  '/radar': typeof RadarRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/backup': typeof BackupRoute
+  '/biblioteca': typeof BibliotecaRoute
+  '/briefings': typeof BriefingsRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/diario': typeof DiarioRoute
+  '/estudio': typeof EstudioRoute
+  '/mapa': typeof MapaRoute
+  '/radar': typeof RadarRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/backup': typeof BackupRoute
+  '/biblioteca': typeof BibliotecaRoute
+  '/briefings': typeof BriefingsRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/diario': typeof DiarioRoute
+  '/estudio': typeof EstudioRoute
+  '/mapa': typeof MapaRoute
+  '/radar': typeof RadarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/backup'
+    | '/biblioteca'
+    | '/briefings'
+    | '/configuracoes'
+    | '/diario'
+    | '/estudio'
+    | '/mapa'
+    | '/radar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/backup'
+    | '/biblioteca'
+    | '/briefings'
+    | '/configuracoes'
+    | '/diario'
+    | '/estudio'
+    | '/mapa'
+    | '/radar'
+  id:
+    | '__root__'
+    | '/'
+    | '/backup'
+    | '/biblioteca'
+    | '/briefings'
+    | '/configuracoes'
+    | '/diario'
+    | '/estudio'
+    | '/mapa'
+    | '/radar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BackupRoute: typeof BackupRoute
+  BibliotecaRoute: typeof BibliotecaRoute
+  BriefingsRoute: typeof BriefingsRoute
+  ConfiguracoesRoute: typeof ConfiguracoesRoute
+  DiarioRoute: typeof DiarioRoute
+  EstudioRoute: typeof EstudioRoute
+  MapaRoute: typeof MapaRoute
+  RadarRoute: typeof RadarRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/backup': {
+      id: '/backup'
+      path: '/backup'
+      fullPath: '/backup'
+      preLoaderRoute: typeof BackupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/biblioteca': {
+      id: '/biblioteca'
+      path: '/biblioteca'
+      fullPath: '/biblioteca'
+      preLoaderRoute: typeof BibliotecaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/briefings': {
+      id: '/briefings'
+      path: '/briefings'
+      fullPath: '/briefings'
+      preLoaderRoute: typeof BriefingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diario': {
+      id: '/diario'
+      path: '/diario'
+      fullPath: '/diario'
+      preLoaderRoute: typeof DiarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/estudio': {
+      id: '/estudio'
+      path: '/estudio'
+      fullPath: '/estudio'
+      preLoaderRoute: typeof EstudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mapa': {
+      id: '/mapa'
+      path: '/mapa'
+      fullPath: '/mapa'
+      preLoaderRoute: typeof MapaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/radar': {
+      id: '/radar'
+      path: '/radar'
+      fullPath: '/radar'
+      preLoaderRoute: typeof RadarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BackupRoute: BackupRoute,
+  BibliotecaRoute: BibliotecaRoute,
+  BriefingsRoute: BriefingsRoute,
+  ConfiguracoesRoute: ConfiguracoesRoute,
+  DiarioRoute: DiarioRoute,
+  EstudioRoute: EstudioRoute,
+  MapaRoute: MapaRoute,
+  RadarRoute: RadarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
