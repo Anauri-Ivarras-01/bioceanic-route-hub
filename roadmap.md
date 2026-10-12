@@ -1,6 +1,7 @@
 # Primeira versão
-- [ ] Painel, radar demonstrativo dos quatro países e mapa esquemático.
-- [ ] Biblioteca local, diário, estúdio LinkedIn e briefings copiáveis.
-- [ ] Backups validados e alertas editoriais.
-- [ ] PWA, preparação GitHub Pages/Actions e orientações.
-- [ ] Testar os principais fluxos locais.
+- [x] Painel, radar demonstrativo dos quatro países e mapa esquemático.
+- [x] Biblioteca local, diário, estúdio LinkedIn e briefings copiáveis.
+- [x] Backups validados e alertas editoriais.
+- [x] PWA, preparação GitHub Pages/Actions e orientações.
+- [x] Testar os principais fluxos locais.
+- [ ] Publicação e teste offline instalado: depende da conexão do repositório e ativação do GitHub Pages pelo proprietário.
