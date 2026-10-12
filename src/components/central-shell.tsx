@@ -1,5 +1,5 @@
 import { Link, useRouterState } from '@tanstack/react-router';
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { LayoutDashboard, Radio, Map, BookOpen, NotebookPen, Linkedin, Sparkles, Archive, Settings2, ChevronRight, Bell, Menu, UserRound, Route, X, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCentral } from './central-store';
@@ -15,6 +15,20 @@ export const navigation = [
 export function CentralShell({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: s => s.location.pathname });
   const [open, setOpen] = useState(false); const [notifications, setNotifications] = useState(false);
+  const [backupDue, setBackupDue] = useState(false);
+  useEffect(() => {
+    const check = () => {
+      try {
+        const last = localStorage.getItem('central-rota-last-backup');
+        const elapsed = last ? Date.now() - new Date(last).getTime() : Infinity;
+        setBackupDue(!last || !Number.isFinite(elapsed) || elapsed >= 7 * 24 * 60 * 60 * 1000);
+      } catch { setBackupDue(true); }
+    };
+    check();
+    const interval = window.setInterval(check, 60000);
+    window.addEventListener('central-rota-backup-exported', check);
+    return () => { window.clearInterval(interval); window.removeEventListener('central-rota-backup-exported', check); };
+  }, []);
   const { error } = useCentral();
   const current = navigation.find(n => n.to === path)?.label || (path === '/backup' ? 'Backups & dados' : 'Configurações');
   return <div className="app-shell">
@@ -26,6 +40,6 @@ export function CentralShell({ children }: { children: ReactNode }) {
       <div className="local-status"><div className="status-line"><span className="status-dot" />Armazenamento local</div><p>Seus registros ficam neste dispositivo.</p></div>
       <div className="profile"><div className="profile-icon"><UserRound size={16} /></div><div><strong>Espaço de trabalho</strong><small>Versão 1.0 · Sem login</small></div><ShieldCheck size={15} className="text-muted-foreground ml-auto" /></div></div>
     </aside>
-    <div className="main-shell"><header className="topbar"><Button className="mobile-menu" variant="ghost" size="icon" aria-label={open ? 'Fechar menu' : 'Abrir menu'} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button><div className="breadcrumb">Central Rota Bioceânica<ChevronRight size={12} /><strong>{current}</strong></div><div className="top-actions"><span className="demo-badge">VERSÃO DEMONSTRATIVA</span><Button variant="ghost" size="icon" aria-label="Alertas editoriais" title="Alertas editoriais" onClick={() => setNotifications(!notifications)}><Bell size={17} /></Button><div className="profile-icon"><UserRound size={15} /></div></div>{notifications && <div className="notification-note"><strong className="text-gold">Alertas editoriais</strong><p>As 4 pautas são exemplos, não notícias verificadas. Confira fontes, datas e números antes de publicar.</p></div>}</header><main className="page-content">{error && <p role="alert" className="notice error-notice">{error}</p>}{children}<footer className="app-footer"><span>CENTRAL ROTA BIOCEÂNICA <span className="text-gold">·</span> Inteligência que conecta fronteiras.</span><span>Brasil · Paraguai · Argentina · Chile <span className="text-gold">↗</span></span></footer></main></div>
+    <div className="main-shell"><header className="topbar"><Button className="mobile-menu" variant="ghost" size="icon" aria-label={open ? 'Fechar menu' : 'Abrir menu'} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button><div className="breadcrumb">Central Rota Bioceânica<ChevronRight size={12} /><strong>{current}</strong></div><div className="top-actions"><span className="demo-badge">VERSÃO DEMONSTRATIVA</span><Button variant="ghost" size="icon" aria-label="Alertas editoriais" title="Alertas editoriais" onClick={() => setNotifications(!notifications)}><Bell size={17} /></Button><div className="profile-icon"><UserRound size={15} /></div></div>{notifications && <div className="notification-note"><strong className="text-gold">Alertas editoriais</strong><p>As quatro pautas iniciais são exemplos. Confira as fontes, datas e números antes de publicar.</p></div>}</header><main className="page-content">{error && <p role="alert" className="notice error-notice">{error}</p>}{backupDue && <div role="status" className="notice">Lembrete semanal: exporte seu backup. <Link to="/backup" className="text-gold underline">Abrir backups</Link>. O alerta só aparece ao abrir o aplicativo.</div>}{children}<footer className="app-footer"><span>CENTRAL ROTA BIOCEÂNICA <span className="text-gold">·</span> Inteligência que conecta fronteiras.</span><span>Brasil · Paraguai · Argentina · Chile <span className="text-gold">↗</span></span></footer></main></div>
   </div>;
 }
