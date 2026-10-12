@@ -7,7 +7,7 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { VitePWA } from "vite-plugin-pwa";
 
-const pagesBuild = process.env.GITHUB_PAGES === 'true';
+const pagesBuild = process.env['GITHUB_PAGES'] === 'true';
 const base = pagesBuild ? '/central-rota-bioceanica/' : '/';
 
 export default defineConfig({
@@ -25,7 +25,7 @@ export default defineConfig({
         icons: [{ src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,png,jpg,svg,ico,woff2}'],
+        globPatterns: ['**/*.{js,css,png,jpg,svg,ico,woff2}'],
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         navigateFallback: null,
         runtimeCaching: [
