@@ -10,7 +10,7 @@ export function CentralProvider({ children }: { children: ReactNode }) {
     setReady(true); registerCentralPwa().catch(() => {});
   }, []);
   function update(next: LocalData) {
-    try { const validated = backupSchema.parse(next); localStorage.setItem('central-rota-v1', JSON.stringify(validated)); setData(validated); setError(''); return true; }
+    try { localStorage.setItem('central-rota-v1', JSON.stringify(backupSchema.parse(next))); setData(next); setError(''); return true; }
     catch { setError('Não foi possível salvar. O armazenamento pode estar cheio ou indisponível. Exporte um backup.'); return false; }
   }
   return <Store.Provider value={{ data, update, ready, error }}>{children}</Store.Provider>;

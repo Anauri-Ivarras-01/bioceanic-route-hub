@@ -25,6 +25,6 @@ export function CorridorMap({ large = false }: { large?: boolean }) {
       {stops.map(s => <g key={s.name}><circle cx={s.x} cy={s.y} r="10" className="map-halo" /><circle cx={s.x} cy={s.y} r="4" className="map-dot" /><text x={s.x + 8} y={s.y - 10} className="map-label">{s.name}</text></g>)}
     </svg>
     <div className="map-key"><span><i /> Corredor bioceânico</span><span>Traçado esquemático • não utilizar para navegação</span></div>
-    {large && <><div className="stop-list">{stops.map(s => <Button variant={selected.name === s.name ? 'default' : 'outline'} key={s.name} onClick={() => setSelected(s)}>{s.name}</Button>)}</div><div className="map-selection"><strong>{selected.name}</strong><span>{selected.country} · Ponto de referência do corredor</span></div></>}
+    {large && selected && <><div className="stop-list">{stops.map(s => <Button variant={selected.name === s.name ? 'default' : 'outline'} key={s.name} onClick={() => setSelected(s)}>{s.name}</Button>)}</div><div className="map-selection"><strong>{selected.name}</strong><span>{selected.country} · Ponto de referência do corredor</span></div></>}
   </div>;
 }

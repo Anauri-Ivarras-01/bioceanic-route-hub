@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { PageHeading, pageHead } from '@/components/page-heading';
 import { NewsRadar } from '@/components/news-radar';
-import { ManualNews } from '@/components/manual-news';
-export const Route = createFileRoute('/radar')({ head: () => pageHead('Radar de notícias', 'Registros manuais e pautas demonstrativas dos quatro países, com fontes e alertas de verificação.'), component: Radar });
-function Radar() { return <><PageHeading title="Radar de notícias" subtitle="Brasil, Paraguai, Argentina e Chile no mesmo horizonte." /><p className="notice">Adicione notícias e acontecimentos com suas fontes. As quatro pautas iniciais são apenas exemplos; atualizações automáticas ainda não estão conectadas.</p><div className="mb-6"><ManualNews /></div><NewsRadar full /></>; }
+export const Route = createFileRoute('/radar')({ head: () => pageHead('Radar de notícias', 'Pautas demonstrativas dos quatro países do corredor bioceânico, com filtros e alertas editoriais.'), component: Radar });
+function Radar() { return <><PageHeading title="Radar de notícias" subtitle="Brasil, Paraguai, Argentina e Chile no mesmo horizonte." /><p className="notice">Curadoria demonstrativa. A conexão com fontes de notícias reais depende de configuração posterior; esta versão não consulta feeds automaticamente.</p><NewsRadar full /></>; }

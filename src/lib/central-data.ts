@@ -11,27 +11,9 @@ export const news = [
 export const entrySchema = z.object({ id: z.string(), title: z.string().min(3).max(160), country: z.enum(countries), date: z.string(), body: z.string().min(10).max(20000) });
 export const materialSchema = z.object({ id: z.string(), title: z.string().min(1).max(200), filename: z.string(), mime: z.string(), data: z.string().max(15000000), added: z.string() });
 export const draftSchema = z.object({ id: z.string(), title: z.string(), text: z.string(), mode: z.enum(['post', 'carousel']) });
-export const newsCategories = ['INFRAESTRUTURA', 'ECONOMIA', 'LOGÍSTICA', 'TURISMO', 'INTEGRAÇÃO REGIONAL', 'POLÍTICAS PÚBLICAS'] as const;
-export const manualNewsSchema = z.object({
-  id: z.string().min(1),
-  country: z.enum(countries),
-  category: z.enum(newsCategories),
-  title: z.string().trim().min(5).max(180),
-  summary: z.string().trim().min(20).max(3000),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  sourceName: z.string().trim().max(160),
-  sourceUrl: z.string().trim().refine(url => !url || /^https:\/\//i.test(url) && (() => { try { return new URL(url).protocol === 'https:'; } catch { return false; } })(), 'Use uma URL HTTPS válida.'),
-  verification: z.enum(['a_verificar', 'verificado']),
-  addedAt: z.string().datetime(),
-}).superRefine((item, ctx) => {
-  if (item.verification === 'verificado' && (!item.sourceUrl || item.sourceName.length < 3)) {
-    ctx.addIssue({ code: 'custom', path: ['sourceUrl'], message: 'Para marcar como verificado, informe o nome e a URL HTTPS da fonte.' });
-  }
-});
-export type ManualNews = z.infer<typeof manualNewsSchema>;
-export const backupSchema = z.object({ version: z.literal(1), entries: z.array(entrySchema).max(1000), materials: z.array(materialSchema).max(100), drafts: z.array(draftSchema).max(1000), stories: z.array(manualNewsSchema).max(500).default([]) });
+export const backupSchema = z.object({ version: z.literal(1), entries: z.array(entrySchema).max(1000), materials: z.array(materialSchema).max(100), drafts: z.array(draftSchema).max(1000) });
 export type LocalData = z.infer<typeof backupSchema>;
-export const initialData: LocalData = { version: 1, entries: [], materials: [], drafts: [], stories: [] };
+export const initialData: LocalData = { version: 1, entries: [], materials: [], drafts: [] };
 export function download(content: string, name: string, mime = 'text/plain;charset=utf-8') {
   const url = URL.createObjectURL(new Blob([content], { type: mime }));
   const link = document.createElement('a'); link.href = url; link.download = name; link.click();
