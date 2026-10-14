@@ -2,16 +2,16 @@
 
 ## Publicar no GitHub Pages
 
-1. No Lovable, use **+ → GitHub → Connect project**. Autorize a integração e crie o repositório **central-rota-bioceanica**. A integração de sincronização de código não é o conector de API do GitHub. A conexão deve ser feita pelo proprietário do projeto; não foi realizada nesta entrega.
-2. O Lovable cria um novo repositório, sem importação direta de um repositório existente. Se o nome desejado já existir, copie o código para esse repositório usando sua ferramenta de desenvolvimento, mantendo os arquivos ocultos, inclusive `.github/workflows/pages.yml`.
+1. O projeto está conectado ao repositório **Anauri-Ivarras-01/bioceanic-route-hub**, conforme informado pelo proprietário. As alterações do Lovable são sincronizadas pela integração de código, sem push manual.
+2. Preserve os arquivos ocultos, inclusive `.github/workflows/pages.yml`, ao trabalhar no repositório conectado.
 3. No GitHub, vá a **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 4. Na aba **Actions**, execute **Pages → Run workflow**, ou envie mudanças para a branch `main`. Se usar outra branch principal, ajuste a lista no workflow.
-5. A ação instala dependências, executa a compilação estática, verifica arquivos essenciais e publica **somente `dist/client`**. O servidor produzido durante a compilação não é publicado nem necessário para usar o aplicativo.
-6. Acesse `https://SEU-USUARIO.github.io/central-rota-bioceanica/` (substitua SEU-USUARIO). O nome do repositório precisa corresponder ao caminho configurado em `vite.config.ts`.
+5. A ação instala dependências, executa os testes e a compilação estática, verifica as nove páginas, seus arquivos e o manifesto PWA e publica **somente `dist/client`**. O servidor produzido durante a compilação não é publicado nem necessário para usar o aplicativo.
+6. Acesse `https://anauri-ivarras-01.github.io/bioceanic-route-hub/`. O nome do repositório precisa corresponder ao caminho configurado em `vite.config.ts`.
 
 ## Funcionamento local e PWA
 
-Use `bun install` e `bun run dev` para desenvolvimento. Para gerar os arquivos de Pages fora da ação: `GITHUB_PAGES=true bun run build`. O projeto preserva o TanStack Start e pré-renderiza todas as páginas públicas, sem servidor de aplicação em produção.
+Use `bun install` e `bun run dev` para desenvolvimento. Para gerar os arquivos de Pages fora da ação: `GITHUB_PAGES=true bun run build`. O projeto preserva o TanStack Start e pré-renderiza todas as páginas públicas. Um servidor temporário é gerado em `dist/server` apenas para renderizar o HTML durante a compilação; somente `dist/client` é publicado, sem servidor de aplicação em produção. Vite, router e PWA usam `/bioceanic-route-hub/`. Rode `node scripts/validate-pages.mjs` após a compilação para validar os arquivos reais. O workflow preserva `pages-build.log` como artefato de diagnóstico, mesmo em falhas.
 
 Abra a versão publicada online primeiro e visite as páginas antes de testar em modo avião. O cache é gerado pelo vite-plugin-pwa; as páginas têm estratégia de rede primeiro. A instalação depende do navegador e de HTTPS. O modo offline é intencionalmente desativado na prévia do Lovable, em desenvolvimento e em iframes. Acrescente `?sw=off` para desativar o worker. Fontes remotas podem voltar para a fonte local do sistema sem rede.
 
@@ -37,4 +37,4 @@ Abra a versão publicada online primeiro e visite as páginas antes de testar em
 - ChatGPT é externo e requer acesso próprio. Revise informações sensíveis antes de compartilhar.
 - Dados locais podem ser perdidos ao limpar o navegador e estão sujeitos à cota de armazenamento. Erros de salvamento são apresentados sem descartar o formulário. Exporte backups regularmente.
 - Backups são JSON não criptografado, limitados a 20 MB na importação e validados antes de substituir os dados atuais.
-- A conexão do repositório, primeira execução de GitHub Actions, URL publicada e teste offline instalado ficam pendentes do proprietário. Nada foi publicado automaticamente.
+- O repositório está conectado. A nova execução de GitHub Actions e o teste offline instalado precisam ser confirmados após a sincronização. A execução Pages #1 falhou na compilação; a API pública confirmou a etapa, mas recusou acesso ao log detalhado (HTTP 403), portanto a mensagem exata da falha original ainda não foi verificada.

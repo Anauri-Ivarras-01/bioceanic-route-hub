@@ -4,6 +4,8 @@
 - [x] Backups validados e alertas editoriais.
 - [x] PWA, preparação GitHub Pages/Actions e orientações.
 - [x] Testar os principais fluxos locais.
-- [ ] Corrigir a falha do Pages #1, caminho-base e validação do artefato estático para bioceanic-route-hub.
-- [ ] Verificar testes, compilação automática e publicação pelo GitHub Actions.
+- [x] Ajustar caminho-base, renderer de compilação, saída explícita e validação das nove páginas para bioceanic-route-hub.
+- [x] Verificar 14 testes, compilação automática do Lovable e fluxos de persistência/backup no navegador.
+- [ ] Confirmar causa exata do Pages #1: GitHub recusa o log detalhado pela API pública (403); precisa do log disponibilizado pelo proprietário.
+- [ ] Confirmar sincronização e geração do artefato real pelo novo GitHub Actions: última leitura pública ainda mostra a versão antiga; sincronização é gerenciada pelo Lovable, sem push manual.
 - [ ] Teste offline instalado: depende da publicação bem-sucedida no GitHub Pages.
