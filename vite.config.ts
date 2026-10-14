@@ -8,7 +8,7 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { VitePWA } from "vite-plugin-pwa";
 
 const pagesBuild = process.env['GITHUB_PAGES'] === 'true';
-const base = pagesBuild ? '/central-rota-bioceanica/' : '/';
+const base = pagesBuild ? '/bioceanic-route-hub/' : '/';
 
 export default defineConfig({
   vite: {
@@ -35,12 +35,17 @@ export default defineConfig({
       },
     })],
   },
-  ...(pagesBuild ? { nitro: { preset: 'static' } } : {}),
+  // Prerender needs a temporary SSR entry. Only dist/client is deployed to Pages.
+  ...(pagesBuild ? { nitro: {
+    preset: 'node-server',
+    output: { dir: 'dist', serverDir: 'dist/server', publicDir: 'dist/client' },
+  } } : {}),
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
+    router: { basepath: base },
     pages: ['/', '/radar', '/mapa', '/biblioteca', '/diario', '/estudio', '/briefings', '/backup', '/configuracoes'].map(path => ({ path })),
-    prerender: { enabled: pagesBuild, autoStaticPathsDiscovery: false },
+    prerender: { enabled: pagesBuild, autoStaticPathsDiscovery: false, crawlLinks: false, failOnError: true },
   },
 });
