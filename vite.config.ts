@@ -38,6 +38,7 @@ export default defineConfig({
   // Prerender needs a temporary SSR entry. Only dist/client is deployed to Pages.
   ...(pagesBuild ? { nitro: {
     preset: 'node-server',
+    entry: './scripts/pages-renderer.mjs',
     output: { dir: 'dist', serverDir: 'dist/server', publicDir: 'dist/client' },
   } } : {}),
   tanstackStart: {
